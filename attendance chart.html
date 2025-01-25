@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            max-width: 400px;
+        }
+        h2 {
+            text-align: center;
+        }
+        .attendance-list {
+            margin-top: 20px;
+        }
+        .attendance-list div {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Event Registration</h2>
+
+<form id="attendanceForm">
+    <label for="employeeId">Employee ID:</label><br>
+    <input type="text" id="employeeId" required><br><br>
+    
+    <label for="employeeName">Employee Name:</label><br>
+    <input type="text" id="employeeName" required><br><br>
+    
+    <label for="attendanceStatus">Attending?</label><br>
+    <select id="attendanceStatus" required>
+        <option value="">Select...</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select><br><br>
+    
+    <label for="familyCount">Number of Family Members Attending:</label><br>
+    <input type="number" id="familyCount" min="0" required value="0"><br><br>
+    
+    <button type="submit">Submit</button>
+</form>
+
+<div class="attendance-list" id="attendanceList">
+    <h3>Attendance Records</h3>
+</div>
+
+<script>
+    document.getElementById('attendanceForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+
+        const employeeId = document.getElementById('employeeId').value;
+        const name = document.getElementById('employeeName').value;
+        const status = document.getElementById('attendanceStatus').value;
+        const familyCount = document.getElementById('familyCount').value;
+
+        if (employeeId && name && status) {
+            const attendanceList = document.getElementById('attendanceList');
+
+            // Create a new attendance record
+            const record = document.createElement('div');
+            record.textContent = `ID: ${employeeId}, ${name} is attending: ${status}. Family Members Attending: ${familyCount}`;
+            attendanceList.appendChild(record);
+
+            // Clear the form fields
+            document.getElementById('attendanceForm').reset();
+        }
+    });
+</script>
+
+</body>
+</html>
